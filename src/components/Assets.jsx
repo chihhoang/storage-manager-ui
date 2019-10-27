@@ -38,7 +38,7 @@ class Assets extends Component {
     const { length: count } = this.state.assets;
 
     if (count === 0) {
-      return <p>There are no assets in the database</p>;
+      return <p>There is no asset in the database</p>;
     }
 
     return (
