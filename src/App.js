@@ -1,26 +1,53 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React, { Component } from "react";
+import { Switch, Route, Redirect } from "react-router-dom";
+import jwtDecode from "jwt-decode";
+import Movies from "./components/Movies";
+import NotFound from "./components/NotFound";
+import NavBar from "./components/common/NavBar";
+import Home from "./components/Home";
+import Assets from "./components/Assets";
+import LoginForm from "./components/LoginForm";
+import RegisterForm from "./components/RegisterForm";
+import Logout from "./components/Logout";
+import AssetForm from "./components/AssetForm";
+import "./App.css";
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+class App extends Component {
+  state = {};
+
+  componentDidMount() {
+    try {
+      const token = localStorage.getItem("idToken");
+      const user = jwtDecode(token);
+      console.log(jwtDecode(token));
+      this.setState({ user });
+    } catch (ex) {}
+  }
+
+  render() {
+    console.log("app render");
+
+    return (
+      <React.Fragment>
+        <NavBar user={this.state.user} />
+        <main className="container">
+          <Switch>
+            <Route path="/register" component={RegisterForm}></Route>
+            <Route path="/login" component={LoginForm}></Route>
+            <Route path="/movies/:id"></Route>
+            <Route path="/movies" component={Movies}></Route>
+            <Route path="/assets/new" component={AssetForm}></Route>
+            <Route path="/assets" component={Assets}></Route>
+            <Route path="/logout" component={Logout}></Route>
+            <Route path="/not-found" component={NotFound}></Route>
+            <Route path="/" component={Home}></Route>
+            <Redirect from="/" exact to="/movies"></Redirect>
+            <Redirect to="/not-found"></Redirect>
+          </Switch>
+        </main>
+      </React.Fragment>
+    );
+  }
 }
 
 export default App;
