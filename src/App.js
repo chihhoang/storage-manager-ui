@@ -10,6 +10,7 @@ import RegisterForm from "./components/RegisterForm";
 import Logout from "./components/Logout";
 import AssetForm from "./components/AssetForm";
 import "./App.css";
+import Profile from "./components/Profile";
 
 class App extends Component {
   state = {};
@@ -33,6 +34,7 @@ class App extends Component {
           <Switch>
             <Route path="/register" component={RegisterForm}></Route>
             <Route path="/login" component={LoginForm}></Route>
+            <Route path="/profile" component={Profile}></Route>
             <Route path="/assets/new" component={AssetForm}></Route>
             <Route path="/assets" component={Assets}></Route>
             <Route path="/logout" component={Logout}></Route>

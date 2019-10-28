@@ -30,14 +30,12 @@ class LoginForm extends Form {
 
       localStorage.setItem("idToken", response.idToken);
 
-      this.props.history.push("/assets");
+      window.location = "/assets";
     } catch (ex) {
       if (ex.response && ex.response.status === 400) {
         alert("Invalid username and password");
       }
     }
-
-    console.log("handle submit");
   };
 
   render() {
