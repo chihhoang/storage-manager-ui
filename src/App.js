@@ -1,7 +1,6 @@
 import React, { Component } from "react";
 import { Switch, Route, Redirect } from "react-router-dom";
 import jwtDecode from "jwt-decode";
-import Movies from "./components/Movies";
 import NotFound from "./components/NotFound";
 import NavBar from "./components/common/NavBar";
 import Home from "./components/Home";
@@ -19,7 +18,7 @@ class App extends Component {
     try {
       const token = localStorage.getItem("idToken");
       const user = jwtDecode(token);
-      console.log(jwtDecode(token));
+
       this.setState({ user });
     } catch (ex) {}
   }
@@ -34,8 +33,6 @@ class App extends Component {
           <Switch>
             <Route path="/register" component={RegisterForm}></Route>
             <Route path="/login" component={LoginForm}></Route>
-            <Route path="/movies/:id"></Route>
-            <Route path="/movies" component={Movies}></Route>
             <Route path="/assets/new" component={AssetForm}></Route>
             <Route path="/assets" component={Assets}></Route>
             <Route path="/logout" component={Logout}></Route>
