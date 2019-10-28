@@ -1,10 +1,11 @@
 import Axios from "axios";
 
-Axios.defaults.headers.common["Authorization"] = getBearerToken();
+// Axios.defaults.headers.common["Authorization"] = getBearerToken();
 
 export function getBearerToken() {
   return "Bearer " + localStorage.getItem("idToken");
 }
+
 Axios.interceptors.response.use(null, error => {
   const expectedError =
     error.response &&

@@ -2,6 +2,7 @@ import React from "react";
 import Joi from "joi-browser";
 import Form from "./common/Form";
 import * as UserService from "../services/UserService";
+import * as AuthService from "../services/AuthService";
 
 class RegisterForm extends Form {
   state = {
@@ -35,18 +36,23 @@ class RegisterForm extends Form {
     activated: true
   };
 
-  doSubmit() {
+  doSubmit = async () => {
     console.log("handle submit by calling register API");
 
     // call register API
-    const response = UserService.register(this.state.data);
+    try {
+      const { data: response } = await UserService.register(this.state.data);
 
-    console.log(response);
+      localStorage.setItem("idToken", response.idToken);
 
-    window.location = "/assets";
-
-    console.log("handle submit by calling register API");
-  }
+      // this.props.history.push("/assets");
+      window.location = "/assets";
+    } catch (ex) {
+      if (ex.response && ex.response.status === 400) {
+        alert("Error register this user");
+      }
+    }
+  };
 
   render() {
     return (

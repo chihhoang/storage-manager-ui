@@ -1,19 +1,17 @@
 import React, { Component } from "react";
-import { getMovies } from "../services/fakeMovieService";
 import { Link } from "react-router-dom";
 import * as AssetService from "../services/AssetService";
-import * as UserService from "../services/UserService";
+import * as AuthService from "../services/AuthService";
 
 class Assets extends Component {
   state = {
-    movies: getMovies(),
     assets: [],
     currentUser: ""
   };
 
   async componentDidMount() {
     const { data: assets } = await AssetService.getAssets();
-    const { data: user } = await UserService.me(
+    const { data: user } = await AuthService.me(
       localStorage.getItem("idToken")
     );
 
@@ -38,7 +36,14 @@ class Assets extends Component {
     const { length: count } = this.state.assets;
 
     if (count === 0) {
-      return <p>There is no asset in the database</p>;
+      return (
+        <React.Fragment>
+          <Link to="/assets/new">
+            <button className="btn btn-primary">New Asset</button>
+          </Link>
+          <p>There is no asset in the database</p>
+        </React.Fragment>
+      );
     }
 
     return (
@@ -61,6 +66,7 @@ class Assets extends Component {
               <th>Acc. Transfer</th>
               <th>First Name</th>
               <th>Last Name</th>
+              <th>Created Time</th>
               <th></th>
             </tr>
           </thead>
@@ -80,6 +86,7 @@ class Assets extends Component {
                 </td>
                 <td>{asset.firstName}</td>
                 <td>{asset.lastName}</td>
+                <td>{asset.createdDate}</td>
                 <td>
                   <button
                     onClick={() => this.handleDelete(asset)}

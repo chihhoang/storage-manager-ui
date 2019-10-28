@@ -4,7 +4,7 @@ import Input from "./Input";
 
 class Form extends Component {
   state = {
-    data: { username: "", password: "" },
+    data: { username: "", password: "", description: "" },
     errors: {}
   };
 
