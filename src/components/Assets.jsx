@@ -31,8 +31,6 @@ class Assets extends Component {
   };
 
   render() {
-    console.log(this.state.assets);
-
     const { length: count } = this.state.assets;
 
     if (count === 0) {

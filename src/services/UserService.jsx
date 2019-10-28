@@ -1,5 +1,5 @@
 import HttpService from "./HttpService";
-import { endPoint, idToken } from "../config.json";
+import { endPoint } from "../config.json";
 
 export function register(user) {
   console.log("registering user ", user);
